@@ -13,9 +13,7 @@ export const timestamps: { createdAt: true; updatedAt: true } = {
   updatedAt: true,
 };
 
-
-
-export type Action = "create" | "update" | "delete";
+export type Action = 'create' | 'update' | 'delete';
 
 export type OptimisticAction<T> = {
   action: Action;

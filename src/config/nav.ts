@@ -14,15 +14,13 @@ export const defaultLinks: SidebarLink[] = [
 
 export const additionalLinks: AdditionalLinks[] = [
   {
-    title: "Entities",
+    title: 'Entities',
     links: [
       {
-        href: "/pages",
-        title: "Pages",
+        href: '/pages',
+        title: 'Pages',
         icon: Globe,
       },
     ],
   },
-
 ];
-

@@ -1,11 +1,7 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import {
-  createPage,
-  deletePage,
-  updatePage,
-} from "@/lib/api/pages/mutations";
+import { revalidatePath } from 'next/cache';
+import { createPage, deletePage, updatePage } from '@/lib/api/pages/mutations';
 import {
   PageId,
   NewPageParams,
@@ -13,19 +9,19 @@ import {
   pageIdSchema,
   insertPageParams,
   updatePageParams,
-} from "@/lib/db/schema/pages";
+} from '@/lib/db/schema/pages';
 
 const handleErrors = (e: unknown) => {
-  const errMsg = "Error, please try again.";
+  const errMsg = 'Error, please try again.';
   if (e instanceof Error) return e.message.length > 0 ? e.message : errMsg;
-  if (e && typeof e === "object" && "error" in e) {
+  if (e && typeof e === 'object' && 'error' in e) {
     const errAsStr = e.error as string;
     return errAsStr.length > 0 ? errAsStr : errMsg;
   }
   return errMsg;
 };
 
-const revalidatePages = () => revalidatePath("/pages");
+const revalidatePages = () => revalidatePath('/pages');
 
 export const createPageAction = async (input: NewPageParams) => {
   try {
