@@ -33,6 +33,9 @@ export const insertPageSchema = createInsertSchema(pages).omit(timestamps);
 export const insertPageParams = baseSchema
   .extend({
     public: z.coerce.boolean(),
+    slug: z
+      .string()
+      .min(5, { message: 'Your slug must be at least 5 characters long.' }),
   })
   .omit({
     id: true,
