@@ -1,12 +1,12 @@
-import SignOutBtn from "@/components/auth/SignOutBtn";
-import { getUserAuth } from "@/lib/auth/utils";
+import SignOutBtn from '@/components/auth/SignOutBtn';
+import { getUserAuth } from '@/lib/auth/utils';
 
 export default async function Home() {
   const { session } = await getUserAuth();
   return (
-    <main className="">
-      <h1 className="text-2xl font-bold my-2">Profile</h1>
-      <pre className="bg-secondary p-4 rounded-lg my-2">
+    <main className=''>
+      <h1 className='my-2 text-2xl font-bold'>Profile</h1>
+      <pre className='my-2 rounded-lg bg-secondary p-4'>
         {JSON.stringify(session, null, 2)}
       </pre>
       <SignOutBtn />

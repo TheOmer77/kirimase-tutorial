@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card";
+import { Card } from '@/components/ui/card';
 
 interface AccountCardProps {
   params: {
@@ -13,9 +13,9 @@ export function AccountCard({ params, children }: AccountCardProps) {
   const { header, description } = params;
   return (
     <Card>
-      <div id="body" className="p-4 ">
-        <h3 className="text-xl font-semibold">{header}</h3>
-        <p className="text-muted-foreground">{description}</p>
+      <div id='body' className='p-4 '>
+        <h3 className='text-xl font-semibold'>{header}</h3>
+        <p className='text-muted-foreground'>{description}</p>
       </div>
       {children}
     </Card>
@@ -23,7 +23,7 @@ export function AccountCard({ params, children }: AccountCardProps) {
 }
 
 export function AccountCardBody({ children }: { children: React.ReactNode }) {
-  return <div className="p-4">{children}</div>;
+  return <div className='p-4'>{children}</div>;
 }
 
 export function AccountCardFooter({
@@ -35,10 +35,10 @@ export function AccountCardFooter({
 }) {
   return (
     <div
-      className="bg-muted p-4 border dark:bg-card flex justify-between items-center rounded-b-lg"
-      id="footer"
+      className='flex items-center justify-between rounded-b-lg border bg-muted p-4 dark:bg-card'
+      id='footer'
     >
-      <p className="text-muted-foreground text-sm">{description}</p>
+      <p className='text-sm text-muted-foreground'>{description}</p>
       {children}
     </div>
   );

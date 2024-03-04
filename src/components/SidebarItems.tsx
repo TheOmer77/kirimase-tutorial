@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { LucideIcon } from "lucide-react";
+import { LucideIcon } from 'lucide-react';
 
-import { cn } from "@/lib/utils";
-import { defaultLinks, additionalLinks } from "@/config/nav";
+import { cn } from '@/lib/utils';
+import { defaultLinks, additionalLinks } from '@/config/nav';
 
 export interface SidebarLink {
   title: string;
@@ -19,7 +19,7 @@ const SidebarItems = () => {
     <>
       <SidebarLinkGroup links={defaultLinks} />
       {additionalLinks.length > 0
-        ? additionalLinks.map((l) => (
+        ? additionalLinks.map(l => (
             <SidebarLinkGroup
               links={l.links}
               title={l.title}
@@ -43,17 +43,17 @@ const SidebarLinkGroup = ({
   border?: boolean;
 }) => {
   const fullPathname = usePathname();
-  const pathname = "/" + fullPathname.split("/")[1];
+  const pathname = '/' + fullPathname.split('/')[1];
 
   return (
-    <div className={border ? "border-border border-t my-8 pt-4" : ""}>
+    <div className={border ? 'my-8 border-t border-border pt-4' : ''}>
       {title ? (
-        <h4 className="px-2 mb-2 text-xs uppercase text-muted-foreground tracking-wider">
+        <h4 className='mb-2 px-2 text-xs uppercase tracking-wider text-muted-foreground'>
           {title}
         </h4>
       ) : null}
       <ul>
-        {links.map((link) => (
+        {links.map(link => (
           <li key={link.title}>
             <SidebarLink link={link} active={pathname === link.href} />
           </li>
@@ -72,18 +72,18 @@ const SidebarLink = ({
   return (
     <Link
       href={link.href}
-      className={`group transition-colors p-2 inline-block hover:bg-popover hover:text-primary text-muted-foreground text-xs hover:shadow rounded-md w-full${
-        active ? " text-primary font-semibold" : ""
+      className={`group inline-block rounded-md p-2 text-xs text-muted-foreground transition-colors hover:bg-popover hover:text-primary hover:shadow w-full${
+        active ? ' font-semibold text-primary' : ''
       }`}
     >
-      <div className="flex items-center">
+      <div className='flex items-center'>
         <div
           className={cn(
-            "opacity-0 left-0 h-6 w-[4px] absolute rounded-r-lg bg-primary",
-            active ? "opacity-100" : "",
+            'absolute left-0 h-6 w-[4px] rounded-r-lg bg-primary opacity-0',
+            active ? 'opacity-100' : ''
           )}
         />
-        <link.icon className="h-3.5 mr-1" />
+        <link.icon className='mr-1 h-3.5' />
         <span>{link.title}</span>
       </div>
     </Link>
