@@ -51,6 +51,7 @@ export const updatePageParams = baseSchema
     userId: true,
   });
 export const pageIdSchema = baseSchema.pick({ id: true });
+export const pageSlugSchema = baseSchema.pick({ slug: true });
 
 // Types for pages - used to type API request params and within Components
 export type Page = typeof pages.$inferSelect;
@@ -58,6 +59,7 @@ export type NewPage = z.infer<typeof insertPageSchema>;
 export type NewPageParams = z.infer<typeof insertPageParams>;
 export type UpdatePageParams = z.infer<typeof updatePageParams>;
 export type PageId = z.infer<typeof pageIdSchema>['id'];
+export type PageSlug = z.infer<typeof pageSlugSchema>['slug'];
 
 // this type infers the return from getPages() - meaning it will include any joins
 export type CompletePage = Awaited<

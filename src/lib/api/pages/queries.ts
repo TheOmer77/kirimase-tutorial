@@ -1,7 +1,12 @@
 import { db } from '@/lib/db/index';
 import { eq, and } from 'drizzle-orm';
 import { getUserAuth } from '@/lib/auth/utils';
-import { type PageId, pageIdSchema, pages } from '@/lib/db/schema/pages';
+import {
+  pageIdSchema,
+  pageSlugSchema,
+  pages,
+  type PageId,
+} from '@/lib/db/schema/pages';
 import { pageLinks, type CompletePageLink } from '@/lib/db/schema/pageLinks';
 
 export const getPages = async () => {
@@ -33,6 +38,22 @@ export const getPageByIdWithPageLinks = async (id: PageId) => {
     .select({ page: pages, pageLink: pageLinks })
     .from(pages)
     .where(and(eq(pages.id, pageId), eq(pages.userId, session?.user.id!)))
+    .leftJoin(pageLinks, eq(pages.id, pageLinks.pageId));
+  if (rows.length === 0) return {};
+  const p = rows[0].page;
+  const pp = rows
+    .filter(r => r.pageLink !== null)
+    .map(p => p.pageLink) as CompletePageLink[];
+
+  return { page: p, pageLinks: pp };
+};
+
+export const getPageBySlugWithPageLinks = async (slug: PageId) => {
+  const { slug: pageSlug } = pageSlugSchema.parse({ slug });
+  const rows = await db
+    .select({ page: pages, pageLink: pageLinks })
+    .from(pages)
+    .where(eq(pages.slug, pageSlug))
     .leftJoin(pageLinks, eq(pages.id, pageLinks.pageId));
   if (rows.length === 0) return {};
   const p = rows[0].page;
