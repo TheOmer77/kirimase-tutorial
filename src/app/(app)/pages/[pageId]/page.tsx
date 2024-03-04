@@ -1,13 +1,14 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 
-import { getPageByIdWithPageLinks } from '@/lib/api/pages/queries';
 import OptimisticPage from './OptimisticPage';
-import { checkAuth } from '@/lib/auth/utils';
+import TogglePublic from './_components/TogglePublic';
 import PageLinkList from '@/components/pageLinks/PageLinkList';
-
 import { BackButton } from '@/components/shared/BackButton';
 import Loading from '@/app/loading';
+import { checkAuth } from '@/lib/auth/utils';
+import { getPageByIdWithPageLinks } from '@/lib/api/pages/queries';
+import { getUserSubscriptionPlan } from '@/lib/stripe/subscription';
 
 export const revalidate = 0;
 
@@ -25,6 +26,7 @@ export default async function PagePage({
 
 const Page = async ({ id }: { id: string }) => {
   await checkAuth();
+  const { isSubscribed } = await getUserSubscriptionPlan();
 
   const { page, pageLinks } = await getPageByIdWithPageLinks(id);
 
@@ -35,6 +37,7 @@ const Page = async ({ id }: { id: string }) => {
         <BackButton currentResource='pages' />
         <OptimisticPage page={page} />
       </div>
+      <TogglePublic page={page} isSubscribed={Boolean(isSubscribed)} />
       <div className='relative mx-4 mt-8'>
         <h3 className='mb-4 text-xl font-medium'>
           {page.name}&apos;s Page Links
