@@ -13,9 +13,9 @@ export const pages = sqliteTable('pages', {
     .$defaultFn(() => nanoid()),
   name: text('name').notNull(),
   description: text('description').notNull(),
-  public: integer('public', { mode: 'boolean' }).notNull(),
-  slug: text('slug').notNull(),
-  backgroundColor: text('background_color').notNull(),
+  public: integer('public', { mode: 'boolean' }).notNull().default(false),
+  slug: text('slug').notNull().unique(),
+  backgroundColor: text('background_color').notNull().default('#688663'),
   userId: text('user_id').notNull(),
 
   createdAt: text('created_at')
