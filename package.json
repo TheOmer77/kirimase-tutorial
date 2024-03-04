@@ -14,7 +14,8 @@
     "db:pull": "drizzle-kit introspect:sqlite",
     "db:push": "drizzle-kit push:sqlite",
     "db:studio": "drizzle-kit studio",
-    "db:check": "drizzle-kit check:sqlite"
+    "db:check": "drizzle-kit check:sqlite",
+    "stripe:listen": "stripe listen --forward-to localhost:3000/api/webhooks/stripe"
   },
   "dependencies": {
     "@lucia-auth/adapter-drizzle": "^1.0.2",
@@ -27,6 +28,7 @@
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
+    "@stripe/stripe-js": "^3.0.6",
     "@t3-oss/env-nextjs": "^0.9.2",
     "better-sqlite3": "^9.4.3",
     "class-variance-authority": "^0.7.0",
@@ -42,6 +44,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sonner": "^1.4.3",
+    "stripe": "^14.19.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"
