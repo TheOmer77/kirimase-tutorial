@@ -32,15 +32,11 @@ const baseSchema = createSelectSchema(pages).omit(timestamps);
 export const insertPageSchema = createInsertSchema(pages).omit(timestamps);
 export const insertPageParams = baseSchema
   .extend({
-    public: z.coerce.boolean(),
     slug: z
       .string()
       .min(5, { message: 'Your slug must be at least 5 characters long.' }),
   })
-  .omit({
-    id: true,
-    userId: true,
-  });
+  .omit({ id: true, userId: true, public: true, backgroundColor: true });
 
 export const updatePageSchema = baseSchema;
 export const updatePageParams = baseSchema

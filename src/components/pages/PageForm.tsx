@@ -78,14 +78,16 @@ const PageForm = ({
     closeModal && closeModal();
     const values = pageParsed.data;
     const pendingPage: Page = {
+      id: page?.id ?? '',
+      userId: page?.userId ?? '',
+      public: page?.public ?? false,
+      backgroundColor: page?.backgroundColor ?? '',
       updatedAt:
         page?.updatedAt ??
         new Date().toISOString().slice(0, 19).replace('T', ' '),
       createdAt:
         page?.createdAt ??
         new Date().toISOString().slice(0, 19).replace('T', ' '),
-      id: page?.id ?? '',
-      userId: page?.userId ?? '',
       ...values,
     };
     try {
@@ -97,7 +99,12 @@ const PageForm = ({
           });
 
         const error = editing
-          ? await updatePageAction({ ...values, id: page.id })
+          ? await updatePageAction({
+              ...values,
+              id: page.id,
+              public: page.public,
+              backgroundColor: page.backgroundColor,
+            })
           : await createPageAction(values);
 
         const errorFormatted = {
@@ -167,27 +174,6 @@ const PageForm = ({
         <Label
           className={cn(
             'mb-2 inline-block',
-            errors?.public ? 'text-destructive' : ''
-          )}
-        >
-          Public
-        </Label>
-        <br />
-        <Checkbox
-          defaultChecked={page?.public}
-          name={'public'}
-          className={cn(errors?.public ? 'ring ring-destructive' : '')}
-        />
-        {errors?.public ? (
-          <p className='mt-2 text-xs text-destructive'>{errors.public[0]}</p>
-        ) : (
-          <div className='h-6' />
-        )}
-      </div>
-      <div>
-        <Label
-          className={cn(
-            'mb-2 inline-block',
             errors?.slug ? 'text-destructive' : ''
           )}
         >
@@ -201,29 +187,6 @@ const PageForm = ({
         />
         {errors?.slug ? (
           <p className='mt-2 text-xs text-destructive'>{errors.slug[0]}</p>
-        ) : (
-          <div className='h-6' />
-        )}
-      </div>
-      <div>
-        <Label
-          className={cn(
-            'mb-2 inline-block',
-            errors?.backgroundColor ? 'text-destructive' : ''
-          )}
-        >
-          Background Color
-        </Label>
-        <Input
-          type='text'
-          name='backgroundColor'
-          className={cn(errors?.backgroundColor ? 'ring ring-destructive' : '')}
-          defaultValue={page?.backgroundColor ?? ''}
-        />
-        {errors?.backgroundColor ? (
-          <p className='mt-2 text-xs text-destructive'>
-            {errors.backgroundColor[0]}
-          </p>
         ) : (
           <div className='h-6' />
         )}
